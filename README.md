@@ -1,32 +1,29 @@
 # Pre-requisites
-- JDK 17 
-- Maven
-- Spring Boot
-- Docker
+- JDK 17+ 
+- Maven 3.7+ q
+
 
 # Build and Deploy:
-- Unzip product-orders.zip
-  - Navigate to root folder: 
-    * Edit docker-compose.yaml and set the postgres db username, password and url (_Sample parameters are shown below:_)
-                  _SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/productorders_,
-                  _SPRING_DATASOURCE_USERNAME=postgres_,
-                  _SPRING_DATASOURCE_PASSWORD=postgres_
+- Clone the repository
+  - Run command : '_git clone https://github.com/kleelamanohar1/tasks.git_'
+    - validate if a folder tasks would be created
 * Run the below the commands:
-  - command :_mvn clean install_
-    - Validate If automated test cases ran successfully:
-    
-  - command: _docker build -t purchase-orders ._ 
-    - Validate if you see similar output as below:
-    - ![img.png](img.png)
-  -  command: _docker-compose up_
-    - Validate if you see similar output as below:
-    - ![img_2.png](img_2.png)
+  - Run command : '_mvn clean install_'
+    - Validate If automated test cases ran successfully and build was successful by seeing below message 
+      - 'Tests run: 13, Failures: 0, Errors: 0, Skipped: 0'
+      - BUILD SUCCESS
+  - Run command : '_mvn spring-boot:run_'
+    - Validate if the message 'Started MainApplication in .. seconds (process running for ..)' is displayed
+  
 # Test:
    - Access the swagger through below url:
             http://localhost:8080/swagger-ui/index.html
-     - Sample request for Products - Add service
-     ![img_3.png](img_3.png)
-     - Sample request for Orders - Add service
-     - ![img_4.png](img_4.png)
-     - Sampke request for Order Items - Add service
-     - ![img_5.png](img_5.png)
+     - Sample request for Tasks - Add service
+            {
+              "completed": false,
+                "createdDate": "2023-10-23T13:46:19.888Z",
+                "completedDate": "2023-10-23T13:46:19.888Z",
+                "title": "Run_Events",
+                "description": "Task to run events processing"
+            }
+    
