@@ -23,7 +23,7 @@ import java.util.List;
         description = "CRUD Operations for Tasks"
 )
 @RestController
-@RequestMapping("api/tasks")
+@RequestMapping("tasks")
 public class TaskController {
     @Autowired
     TaskService taskService;
@@ -46,7 +46,12 @@ public class TaskController {
                     content = {@Content(mediaType = "application/json",schema = @Schema(implementation = Task.class))}),
             @ApiResponse(responseCode = "404",description = "Task not found",content = @Content),
             @ApiResponse(responseCode = "400",description = "Empty/Null task name",content = @Content),
-            @ApiResponse(responseCode = "400",description = "Task total price can not be <=0.0",content = @Content)})
+            @ApiResponse(responseCode = "400",description = "Empty/Null created date",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Empty/Null description",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Created date can not be in future",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Created date can not be null",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Completed date can not be in future",content = @Content)
+    })
     @PostMapping()
     public ResponseEntity<Task> addTask(@Valid @RequestBody Task task){
         logger.info("Adding task");
@@ -58,7 +63,11 @@ public class TaskController {
                     content = {@Content(mediaType = "application/json",schema = @Schema(implementation = Task.class))}),
             @ApiResponse(responseCode = "404",description = "Task not found",content = @Content),
             @ApiResponse(responseCode = "400",description = "Empty/Null task name",content = @Content),
-            @ApiResponse(responseCode = "400",description = "Task total price can not be <=0.0",content = @Content)})
+            @ApiResponse(responseCode = "400",description = "Empty/Null created date",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Empty/Null description",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Created date can not be in future",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Created date can not be null",content = @Content),
+            @ApiResponse(responseCode = "400",description = "Completed date can not be in future",content = @Content)})
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable long id,@Valid @RequestBody Task task){
         logger.info("Updating task ");

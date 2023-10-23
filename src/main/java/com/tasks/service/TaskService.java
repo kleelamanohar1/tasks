@@ -2,6 +2,7 @@ package com.tasks.service;
 
 import com.tasks.repository.TaskRepository;
 import com.tasks.model.Task;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class TaskService
         taskRepository.save(task);
         return task;
     }
+
     public Optional<Task> findById(Long id){
         logger.info("Finding Task");
         logger.debug("Finding Task for id :" +id);

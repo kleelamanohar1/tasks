@@ -1,9 +1,7 @@
 package com.tasks.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 
@@ -11,15 +9,22 @@ import java.util.Date;
 public class Task {
 
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    boolean completed;
-    Date createdDate ;
-    Date completedDate;
-    String title;
-    String description;
+
+    private boolean completed;
+    @NotNull(message = "Created date can not be null or empty")
+    @PastOrPresent(message="Created date  must be less than or equals to today's date")
+    private Date createdDate ;
+    @PastOrPresent(message="Completed date  must be less than or equals to today's date")
+    private Date completedDate;
+    @NotBlank(message = "Title can not be null or empty")
+    @NotNull(message = "Title can not be null or empty")
+    private String title;
+    @NotBlank(message = "Description can not be null or empty")
+    @NotNull(message = "Description can not be null or empty")
+    private String description;
 
     public Task(){
 
