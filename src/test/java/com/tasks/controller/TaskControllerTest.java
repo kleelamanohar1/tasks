@@ -47,7 +47,7 @@ public class TaskControllerTest {
         Task task = new Task("Process Events","Processes Daily Events",false,createdDate,updatedDate);
 
         mockMvc.perform( MockMvcRequestBuilders
-                        .post("/api/tasks")
+                        .post("/tasks")
                         .content(TaskUtils.asJsonString(task))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -68,7 +68,7 @@ public class TaskControllerTest {
                         ctvTask));
         when(taskService.getAllTasks()).thenReturn(tasks);
         mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api/tasks"))
+                        .get("/tasks"))
                         .andExpect(status().isOk())
                          .andExpect(jsonPath("$.size()").value(tasks.size()));
 
@@ -89,7 +89,7 @@ public class TaskControllerTest {
                         ctvTask));
         when(taskService.getAllTasks()).thenReturn(tasks);
         mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api/tasks/4"))
+                        .get("/tasks/4"))
                 .andExpect(status().isNotFound());
 
 
@@ -102,7 +102,7 @@ public class TaskControllerTest {
         Task samsungTask = new Task("Process Samsung Events","Processes Daily Events for samsung",false,createdDate,updatedDate);
         when(taskService.findById(4L)).thenReturn(Optional.empty());
         when(taskService.addTask(any(Task.class))).thenReturn(samsungTask);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/tasks/4").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.put("/tasks/4").contentType(MediaType.APPLICATION_JSON)
                         .content(TaskUtils.asJsonString(samsungTask)))
                 .andExpect(status().isNotFound());
 
@@ -117,7 +117,7 @@ public class TaskControllerTest {
        Task samsungTask = new Task("Process Samsung Events","Processes Daily Events for samsung",false,createdDate,updatedDate);
         when(taskService.findById(4L)).thenReturn(Optional.empty());
         when(taskService.addTask(any(Task.class))).thenReturn(samsungTask);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/tasks/4").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.delete("/tasks/4").contentType(MediaType.APPLICATION_JSON)
                         .content(TaskUtils.asJsonString(samsungTask)))
                 .andExpect(status().isNotFound());
 
@@ -133,7 +133,7 @@ public class TaskControllerTest {
         Task updatedTask = new Task("Process Vizio Events","Processes Daily Events for vizio",false,createdDate,updatedDate);
         when(taskService.findById(4L)).thenReturn(Optional.of(samsungTask));
         when(taskService.addTask(any(Task.class))).thenReturn(updatedTask);
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/tasks/4").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.put("/tasks/4").contentType(MediaType.APPLICATION_JSON)
                         .content(TaskUtils.asJsonString(updatedTask)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.completed").value(updatedTask.isCompleted()));
@@ -152,7 +152,7 @@ public class TaskControllerTest {
         Task samsungTask = new Task("Process Samsung Events","Processes Daily Events for samsung",false,createdDate,updatedDate);
         when(taskService.findById(1L)).thenReturn(Optional.of(samsungTask));
         doNothing().when(taskService).delete(1L);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/tasks/1").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/tasks/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
